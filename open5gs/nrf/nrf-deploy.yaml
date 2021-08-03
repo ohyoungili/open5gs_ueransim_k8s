@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: open5gs-nrf-svc-pool
-#  namespace: open5gs
+  namespace: open5gs-ueransim
   labels:
-    nr-mode: nrf
+    ngc-mode: nrf
 spec:
   selector:
-    nr-mode: nrf
+    ngc-mode: nrf
   ports:
     - protocol: TCP
       port: 7777   
@@ -16,18 +16,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: open5gs-nrf
-#  namespace: open5gs
+  namespace: open5gs-ueransim
   labels:
-    nr-mode: nrf
+    ngc-mode: nrf
 spec:
   replicas: 1
   selector:
     matchLabels:
-      nr-mode: nrf
+      ngc-mode: nrf
   template:
     metadata:
       labels:
-        nr-mode: nrf
+       ngc-mode: nrf
     spec:   
       containers:
         - name: nrf
