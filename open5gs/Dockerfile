@@ -1,7 +1,6 @@
 FROM debian:buster-slim as builder
 
-LABEL org.opencontainers.image.authors="Oh young ill <youngil.oh@lge.com>" \
-      org.opencontainers.image.vendor="lge" \
+LABEL org.opencontainers.image.authors="Oh young ill <ohyoungil@gmail.com>" \
       org.opencontainers.image.licenses="GNU AGPL v3.0"
 
 RUN apt-get update && \
