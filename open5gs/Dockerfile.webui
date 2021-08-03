@@ -1,5 +1,5 @@
 FROM node:lts-buster as dev
-LABEL maintainer="youngil.oh@lge.com"
+LABEL maintainer="ohyoungili@gmail.com"
 
 ARG version=2.3.0
 
