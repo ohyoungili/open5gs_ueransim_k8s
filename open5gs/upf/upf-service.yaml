@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: open5gs-upf-svc-pool
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: upf
+spec:
+#  clusterIP: None
+  selector:
+    ngc-mode: upf
+  ports:
+    - name: sbi-tcp
+      protocol: TCP
+      port: 7777
+    - name: sbi-udp
+      protocol: UDP
+      port: 7777
+    - name: pfcp-tcp
+      protocol: TCP
+      port: 8805
+    - name: pfcp-udp
+      protocol: UDP
+      port: 8805
+

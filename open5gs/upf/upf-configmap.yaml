@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: open5gs-upf-config
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: upf
+data:
+  upf.yaml: |
+    upf:
+        pfcp:
+          dev: eth0
+        gtpu:
+          dev: eth0
+        subnet:
+          - addr: 10.45.0.1/16
+            dnn: internet    
+            dev: ogstun
+    smf:
+        pfcp:
+          - name: open5gs-smf-svc-pool.open5gs-ueransim

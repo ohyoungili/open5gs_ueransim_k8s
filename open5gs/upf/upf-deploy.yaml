@@ -1,0 +1,66 @@
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: open5gs-upf-svc-pool
+#  namespace: open5gs-ueransim
+#  labels:
+#    ngc-mode: upf
+#spec:
+#  clusterIP: None   
+#  selector:
+#    ngc-mode: upf    
+#---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: StatefulSet 
+metadata:
+  name: open5gs-upf
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: upf
+spec:
+  replicas: 1
+  serviceName: "open5gs-upf-svc-pool"
+  selector:
+    matchLabels:
+      ngc-mode: upf
+  template:
+    metadata:          
+      labels:
+        ngc-mode: upf
+    spec:
+      containers:
+        - name: upf
+          image: ohyoungili/open5gs:2.3.0
+          securityContext:
+            privileged: true
+            #sysctls:
+            #- name: net.ipv6.conf.all.disable_ipv6
+            #  value: 0
+            capabilities:
+              add: ["NET_ADMIN"]
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - ip tuntap add name ogstun mode tun;
+              ip addr add 10.45.0.1/16 dev ogstun;
+              sysctl -w net.ipv6.conf.all.disable_ipv6=0;
+              ip addr add cafe::1/64 dev ogstun;
+              ip link set ogstun up;
+              sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward";
+              iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE;
+              sleep 10;
+              open5gs-upfd -c /opt/open5gs/etc/open5gs/upf.yaml;
+          volumeMounts:
+          - name: open5gs-upf-config
+            mountPath: /opt/open5gs/etc/open5gs/upf.yaml
+            subPath: "upf.yaml"
+          - mountPath: /dev/net/tun
+            name: dev-net-tun            
+      volumes:
+        - name: open5gs-upf-config
+          configMap:
+            name: open5gs-upf-config            
+        - name: dev-net-tun
+          hostPath:
+            path: /dev/net/tun
+

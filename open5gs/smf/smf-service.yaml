@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: open5gs-smf-svc-pool
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: smf
+spec:
+#  clusterIP: None
+  selector:
+    ngc-mode: smf
+  ports:
+    - name: sbi-tcp
+      protocol: TCP
+      port: 7777
+    - name: sbi-udp
+      protocol: UDP
+      port: 7777
