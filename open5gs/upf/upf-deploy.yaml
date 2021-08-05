@@ -49,7 +49,8 @@ spec:
               ip link set ogstun up;
               sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward";
               iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE;
-              sleep 10;
+              echo "Wait. for DNS";
+              sleep 60;
               open5gs-upfd -c /opt/open5gs/etc/open5gs/upf.yaml;
           volumeMounts:
           - name: open5gs-upf-config

@@ -13,7 +13,8 @@
 #      port: 7777   
 #---    
 apiVersion: apps/v1
-kind: Deployment
+#kind: Deployment
+kind: StatefulSet
 metadata:
   name: open5gs-nrf
   namespace: open5gs-ueransim
@@ -21,6 +22,7 @@ metadata:
     ngc-mode: nrf
 spec:
   replicas: 1
+  serviceName: "open5gs-nrf-svc-pool"
   selector:
     matchLabels:
       ngc-mode: nrf
@@ -33,12 +35,14 @@ spec:
         - name: nrf
           image: ohyoungili/open5gs:2.3.0
           imagePullPolicy: Always          
-          command: ["open5gs-nrfd", "-c", "/opt/open5gs/etc/open5gs/nrf.yaml"]
-          #command: ["/bin/bash"]
-          #args: ["-c", "sleep 1000"]
+          #command: ["open5gs-nrfd", "-c", "/opt/open5gs/etc/open5gs/nrf.yaml"]
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "Wait. for DNS";
+              sleep 60;
+              open5gs-nrfd -c /opt/open5gs/etc/open5gs/nrf.yaml;
           volumeMounts:
             - name: open5gs-nrf-config
-#              mountPath: /open5gs/config-map/nrf.yaml
               mountPath: /opt/open5gs/etc/open5gs/nrf.yaml
               subPath: "nrf.yaml"
       volumes:

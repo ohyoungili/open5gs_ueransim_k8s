@@ -18,5 +18,5 @@ data:
             dev: ogstun
     smf:
         pfcp:
-          - addr: 10.96.100.104
-          #- name: open5gs-smf-svc-pool.open5gs-ueransim
+          #- addr: 10.96.100.104
+          - name: open5gs-smf-svc-pool

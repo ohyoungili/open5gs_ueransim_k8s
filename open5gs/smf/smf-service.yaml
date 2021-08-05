@@ -7,20 +7,20 @@ metadata:
     ngc-mode: smf
 spec:
   type: ClusterIP
-  clusterIP: 10.96.100.104
-#  clusterIP: None
+#  clusterIP: 10.96.100.104
+  clusterIP: None
   selector:
     ngc-mode: smf
-  ports:
-    - name: smf-sbi-tcp
-      protocol: TCP
-      port: 7777
-    - name: smf-sbi-udp
-      protocol: UDP
-      port: 7777
-    - name: smf-pfcp-tcp
-      protocol: TCP
-      port: 8805
-    - name: smf-pfcp-udp
-      protocol: UDP
-      port: 8805
+#  ports:
+#    - name: smf-sbi-tcp
+#      protocol: TCP
+#      port: 7777
+#    - name: smf-sbi-udp
+#      protocol: UDP
+#      port: 7777
+#    - name: smf-pfcp-tcp
+#      protocol: TCP
+#      port: 8805
+#    - name: smf-pfcp-udp
+#      protocol: UDP
+#      port: 8805
