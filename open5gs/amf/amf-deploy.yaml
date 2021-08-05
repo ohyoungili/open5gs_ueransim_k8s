@@ -1,0 +1,37 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: StatefulSet 
+metadata:
+  name: open5gs-amf
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: amf
+spec:
+  replicas: 1
+  serviceName: "open5gs-amf-svc-pool"
+  selector:
+    matchLabels:
+      ngc-mode: amf
+  template:
+    metadata:          
+      labels:
+        ngc-mode: amf
+    spec:
+      containers:
+        - name: amf
+          image: ohyoungili/open5gs:2.3.0
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "Wait. for DNS";
+              sleep 60;
+              open5gs-amfd -c /opt/open5gs/etc/open5gs/amf.yaml;
+          volumeMounts:
+          - name: open5gs-amf-config
+            mountPath: /opt/open5gs/etc/open5gs/amf.yaml
+            subPath: "amf.yaml"
+      volumes:
+        - name: open5gs-amf-config
+          configMap:
+            name: open5gs-amf-config     
+
