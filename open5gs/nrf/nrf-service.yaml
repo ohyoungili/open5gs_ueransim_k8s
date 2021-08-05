@@ -6,13 +6,15 @@ metadata:
   labels:
     ngc-mode: nrf
 spec:
+  type: ClusterIP
+  clusterIP: 10.96.100.110
   selector:
     ngc-mode: nrf
   ports:
-    - name: sbi-tcp
+    - name: nrf-sbi-tcp
       protocol: TCP
       port: 7777
-    - name: sbi-udp
+    - name: nrf-sbi-udp
       protocol: UDP
       port: 7777
 

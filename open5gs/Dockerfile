@@ -68,7 +68,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
 ENV APP_ROOT=/opt/open5gs
 COPY --from=builder /opt/open5gs/bin ${APP_ROOT}/bin/
 COPY --from=builder /opt/open5gs/etc ${APP_ROOT}/etc/orig
-#COPY configs/ ${APP_ROOT}/etc/
+COPY configs/ ${APP_ROOT}/etc/
 COPY --from=builder /opt/open5gs/lib/ /usr/local/lib/
 #COPY configs/open5gs/upf1.yaml /opt/open5gs/etc/open5gs/upf.yaml
 

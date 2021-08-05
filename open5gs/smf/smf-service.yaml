@@ -6,13 +6,15 @@ metadata:
   labels:
     ngc-mode: smf
 spec:
+  type: ClusterIP
+  clusterIP: 10.96.100.104
 #  clusterIP: None
   selector:
     ngc-mode: smf
   ports:
-    - name: sbi-tcp
+    - name: smf-sbi-tcp
       protocol: TCP
       port: 7777
-    - name: sbi-udp
+    - name: smf-sbi-udp
       protocol: UDP
       port: 7777

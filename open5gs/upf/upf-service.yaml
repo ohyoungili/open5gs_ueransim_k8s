@@ -6,20 +6,21 @@ metadata:
   labels:
     ngc-mode: upf
 spec:
+  type: ClusterIP
+  clusterIP: 10.96.100.107
 #  clusterIP: None
   selector:
     ngc-mode: upf
   ports:
-    - name: sbi-tcp
+    - name: upf-sbi-tcp
       protocol: TCP
       port: 7777
-    - name: sbi-udp
+    - name: upf-sbi-udp
       protocol: UDP
       port: 7777
-    - name: pfcp-tcp
+    - name: upf-pfcp-tcp
       protocol: TCP
       port: 8805
-    - name: pfcp-udp
+    - name: upf-pfcp-udp
       protocol: UDP
       port: 8805
-

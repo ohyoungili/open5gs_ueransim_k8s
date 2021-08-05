@@ -28,10 +28,14 @@ data:
 
     nrf:
       sbi:
-        - name: open5gs-nrf-svc-pool.open5gs-ueransim
+        - addr: 10.96.100.110
           port: 7777
+       # - name: open5gs-nrf-svc-pool.open5gs-ueransim
+       #   port: 7777
 
     upf:
       pfcp:
-        - name: open5gs-upf-svc-pool.open5gs-ueransim
-          dnn: internet
+        - addr: 10.96.100.107
+          dnn: interenet
+        #- name: open5gs-upf-svc-pool.open5gs-ueransim
+        #  dnn: internet
