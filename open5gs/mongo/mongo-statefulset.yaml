@@ -1,13 +1,14 @@
+# https://github.com/morphy2k/k8s-mongo-sidecar/blob/master/example/mongo-statefulset.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: mongo
   namespace: open5gs-ueransim
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: pod-service-endpoint-reader
+  name: read-pod-service-endpoint
 rules:
   - apiGroups:
       - ""
@@ -21,13 +22,13 @@ rules:
       - watch
 ---
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: system:serviceaccount:open5g:mongo
+  name: system:serviceaccount:open5gs-ueransim:mongo
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: pod-service-endpoint-reader
+  name: read-pod-service-endpoint
 subjects:
   - kind: ServiceAccount
     name: mongo
@@ -36,14 +37,14 @@ subjects:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb
-  namespace: open5gs-ueransim
+  name: mongo
   labels:
     name: mongo
+    namespace: open5gs-ueransim
 spec:
   ports:
-    - port: 27017
-      targetPort: 27017
+  - port: 27017
+    targetPort: 27017
   clusterIP: None
   selector:
     role: mongo
@@ -54,7 +55,7 @@ metadata:
   name: mongo
   namespace: open5gs-ueransim
 spec:
-  serviceName: "mongodb"
+  serviceName: "mongo"
   replicas: 1
   selector:
     matchLabels:
@@ -67,10 +68,10 @@ spec:
     spec:
       serviceAccountName: mongo
       automountServiceAccountToken: true
-      terminationGracePeriodSeconds: 10
+      terminationGracePeriodSeconds: 30
       containers:
         - name: mongo
-          image: mongo
+          image: mongo:4
           command:
             - mongod
           args:
@@ -87,8 +88,16 @@ spec:
             - name: KUBERNETES_POD_LABELS
               value: "role=mongo,environment=test"
             - name: KUBERNETES_SERVICE_NAME
-              value: "mongodb"
+              value: "mongo"
       volumes:
       - name: mongo-persistent-storage
         emptyDir: {}
-
+  #volumeClaimTemplates:
+  #- metadata:
+  #    name: mongo-persistent-storage
+  #  spec:
+  #    storageClassName: fast
+  #    accessModes: [ "ReadWriteOnce" ]
+  #    resources:
+  #      requests:
+  #        storage: 2Gi
