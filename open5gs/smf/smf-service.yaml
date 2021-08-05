@@ -11,16 +11,3 @@ spec:
   clusterIP: None
   selector:
     ngc-mode: smf
-#  ports:
-#    - name: smf-sbi-tcp
-#      protocol: TCP
-#      port: 7777
-#    - name: smf-sbi-udp
-#      protocol: UDP
-#      port: 7777
-#    - name: smf-pfcp-tcp
-#      protocol: TCP
-#      port: 8805
-#    - name: smf-pfcp-udp
-#      protocol: UDP
-#      port: 8805

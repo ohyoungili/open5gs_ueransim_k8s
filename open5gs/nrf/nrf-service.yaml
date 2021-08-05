@@ -11,11 +11,5 @@ spec:
   clusterIP: None
   selector:
     ngc-mode: nrf
-#  ports:
-#    - name: nrf-sbi-tcp
-#      protocol: TCP
-#      port: 7777
-#    - name: nrf-sbi-udp
-#      protocol: UDP
-#      port: 7777
+
 

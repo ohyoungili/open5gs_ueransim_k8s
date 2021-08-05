@@ -11,22 +11,3 @@ spec:
   clusterIP: None
   selector:
     ngc-mode: upf
-#  ports:
-#    - name: upf-sbi-tcp
-#      protocol: TCP
-#      port: 7777
-#    - name: upf-sbi-udp
-#      protocol: UDP
-#      port: 7777
-#    - name: upf-pfcp-tcp
-#      protocol: TCP
-#      port: 8805
-#    - name: upf-pfcp-udp
-#      protocol: UDP
-#      port: 8805
-#    - name: upf-gtp-tcp
-#      protocol: TCP
-#      port: 2152
-#    - name: upf-gtp-udp
-#      protocol: UDP
-#      port: 2152
