@@ -38,7 +38,8 @@ spec:
       containers:
         - name: smf
           image: ohyoungili/open5gs:2.3.0
-          imagePullPolicy: IfNotPresent         
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always         
           #command: ["open5gs-smfd", "-c", "/opt/open5gs/etc/open5gs/smf.yaml"]
           command: ["/bin/sh", "-c"]
           args:

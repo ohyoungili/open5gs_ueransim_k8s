@@ -31,7 +31,8 @@ spec:
     spec:   
       containers:
         - name: nrf
-          image: ohyoungili/open5gs:2.3.0          
+          image: ohyoungili/open5gs:2.3.0
+          imagePullPolicy: Always          
           command: ["open5gs-nrfd", "-c", "/opt/open5gs/etc/open5gs/nrf.yaml"]
           #command: ["/bin/bash"]
           #args: ["-c", "sleep 1000"]

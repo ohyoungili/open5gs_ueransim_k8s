@@ -38,7 +38,8 @@ spec:
             #  value: 0
             capabilities:
               add: ["NET_ADMIN"]
-          imagePullPolicy: IfNotPresent
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           command: ["/bin/sh", "-c"]
           args:
             - ip tuntap add name ogstun mode tun;
