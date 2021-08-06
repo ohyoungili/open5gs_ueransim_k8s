@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata:
+  name: open5gs-ausf
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: ausf
+spec:
+  replicas: 1
+  serviceName: "open5gs-ausf-svc-pool"
+  selector:
+    matchLabels:
+      ngc-mode: ausf
+  template:
+    metadata:          
+      labels:
+        ngc-mode: ausf
+    spec:
+      containers:
+        - name: ausf
+          image: ohyoungili/open5gs:2.3.0
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "Wait. for DNS";
+              sleep 60;
+              open5gs-ausfd -c /opt/open5gs/etc/open5gs/ausf.yaml;
+          volumeMounts:
+          - name: open5gs-ausf-config
+            mountPath: /opt/open5gs/etc/open5gs/ausf.yaml
+            subPath: "ausf.yaml"
+      volumes:
+        - name: open5gs-ausf-config
+          configMap:
+            name: open5gs-ausf-config  

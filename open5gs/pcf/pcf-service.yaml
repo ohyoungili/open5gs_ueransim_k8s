@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: open5gs-pcf-svc-pool
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: pcf
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    ngc-mode: pcf

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata:
+  name: open5gs-nssf
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: nssf
+spec:
+  replicas: 1
+  serviceName: "open5gs-nssf-svc-pool"
+  selector:
+    matchLabels:
+      ngc-mode: nssf
+  template:
+    metadata:          
+      labels:
+        ngc-mode: nssf
+    spec:
+      containers:
+        - name: nssf
+          image: ohyoungili/open5gs:2.3.0
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "Wait. for DNS";
+              sleep 60;
+              open5gs-nssfd -c /opt/open5gs/etc/open5gs/nssf.yaml;
+          volumeMounts:
+          - name: open5gs-nssf-config
+            mountPath: /opt/open5gs/etc/open5gs/nssf.yaml
+            subPath: "nssf.yaml"
+      volumes:
+        - name: open5gs-nssf-config
+          configMap:
+            name: open5gs-nssf-config  
