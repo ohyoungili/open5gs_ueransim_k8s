@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata:
+  name: open5gs-udr
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: udr
+spec:
+  replicas: 1
+  serviceName: "open5gs-udr-svc-pool"
+  selector:
+    matchLabels:
+      ngc-mode: udr
+  template:
+    metadata:          
+      labels:
+        ngc-mode: udr
+    spec:
+      containers:
+        - name: udr
+          image: ohyoungili/open5gs:2.3.0
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          env:
+            - name: DB_URI
+              value: "mongodb://mongo/open5gs?replicaSet=rs0"
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "Wait. for DNS";
+              sleep 60;
+              open5gs-udrd -c /opt/open5gs/etc/open5gs/udr.yaml;
+          volumeMounts:
+          - name: open5gs-udr-config
+            mountPath: /opt/open5gs/etc/open5gs/udr.yaml
+            subPath: "udr.yaml"
+      volumes:
+        - name: open5gs-udr-config
+          configMap:
+            name: open5gs-udr-config

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata:
+  name: open5gs-bsf
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: bsf
+spec:
+  replicas: 1
+  serviceName: "open5gs-bsf-svc-pool"
+  selector:
+    matchLabels:
+      ngc-mode: bsf
+  template:
+    metadata:          
+      labels:
+        ngc-mode: bsf
+    spec:
+      containers:
+        - name: bsf
+          image: ohyoungili/open5gs:2.3.0
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          env:
+            - name: DB_URI
+              value: "mongodb://mongo/open5gs?replicaSet=rs0"
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "Wait. for DNS";
+              sleep 60;
+              open5gs-bsfd -c /opt/open5gs/etc/open5gs/bsf.yaml;
+          volumeMounts:
+          - name: open5gs-bsf-config
+            mountPath: /opt/open5gs/etc/open5gs/bsf.yaml
+            subPath: "bsf.yaml"
+      volumes:
+        - name: open5gs-bsf-config
+          configMap:
+            name: open5gs-bsf-config

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: open5gs-udr-config
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: udr
+data:
+  udr.yaml: |
+    udr:
+      sbi:
+        - dev: eth0
+          port: 7777
+
+    nrf:
+        sbi:
+          - name: open5gs-nrf-svc-pool
+            port: 7777

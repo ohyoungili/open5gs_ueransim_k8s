@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata:
+  name: open5gs-udm
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: udm
+spec:
+  replicas: 1
+  serviceName: "open5gs-udm-svc-pool"
+  selector:
+    matchLabels:
+      ngc-mode: udm
+  template:
+    metadata:          
+      labels:
+        ngc-mode: udm
+    spec:
+      containers:
+        - name: udm
+          image: ohyoungili/open5gs:2.3.0
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "Wait. for DNS";
+              sleep 60;
+              open5gs-udmd -c /opt/open5gs/etc/open5gs/udm.yaml;
+          volumeMounts:
+          - name: open5gs-udm-config
+            mountPath: /opt/open5gs/etc/open5gs/udm.yaml
+            subPath: "udm.yaml"
+      volumes:
+        - name: open5gs-udm-config
+          configMap:
+            name: open5gs-udm-config
