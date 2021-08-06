@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: open5gs-webui
+  namespace: open5gs-ueransim  
+  labels:
+    ngc-mode: webui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      ngc-mode: webui
+  template:
+    metadata:
+      labels:
+        ngc-mode: webui
+    spec:
+      containers:
+      - name: webui
+        imagePullPolicy: Always
+        image: ohyoungili/open5gs-webui:2.3.0
+        command: ["node", "server/index.js"]
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DB_URI
+          value: "mongodb://mongo/open5gs?replicaSet=rs0"
+        #- name: NODE_ENV
+        #  value: "production"
+        - name: HOSTNAME
+          value: 0.0.0.0
