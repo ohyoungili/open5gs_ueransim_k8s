@@ -45,24 +45,24 @@ RUN apt-get update && \
 COPY --from=builder /tmp/UERANSIM/build/* /usr/local/bin/
 
 
-#COPY /etc/ueransim /etc/ueransim
+COPY /etc/ueransim /etc/ueransim
 #COPY entrypoint.sh /entrypoint.sh
 
-#ENV ENB_ID=0x19B \
-#    MCC=001 \
-#    MNC=01 \
-#    NETWORK=openverso.org \
-#    TAC=0001 \
-#    MSISDN=0000000001 \
-#    KEY=465B5CE8B199B49FAA5F0A2EE238A6BC \
-#    OP_TYPE=OPC \
-#    OP=E8ED289DEBA952E4283B54E88E6183CA \
-#    SST=1 \
-#    SD=1 \
-#    UE_HOSTNAME=ue \
-#    GNB_HOSTNAME=gnb \
-#    AMF_HOSTNAME=amf \
-#    APN=internet
+ENV ENB_ID=0x19B \
+    MCC=001 \
+    MNC=01 \
+    NETWORK=openverso.org \
+    TAC=0001 \
+    MSISDN=0000000001 \
+    KEY=465B5CE8B199B49FAA5F0A2EE238A6BC \
+    OP_TYPE=OPC \
+    OP=E8ED289DEBA952E4283B54E88E6183CA \
+    SST=1 \
+    SD=1 \
+    UE_HOSTNAME=ue \
+    GNB_HOSTNAME=gnb \
+    AMF_HOSTNAME=amf \
+    APN=internet
 
 #ENTRYPOINT ["/entrypoint.sh"]
 #CMD ["/bin/sh"]
