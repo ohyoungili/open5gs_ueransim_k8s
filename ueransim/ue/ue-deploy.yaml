@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata:
+  name: ueransim-ue
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: ue
+spec:
+  replicas: 1
+  serviceName: "ueransim-ue-svc-pool"
+  selector:
+    matchLabels:
+      ngc-mode: ue
+  template:
+    metadata:          
+      labels:
+        ngc-mode: ue
+    spec:
+      containers:
+        - name: ue
+          image: ohyoungili/ueransim:3.2.2
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["NET_ADMIN"]
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          command: ["/bin/bash", "-c",]
+          args:
+            - sleep 10;
+              echo -e "export GNB_ADDR=$(host -4 ueransim-gnb-svc-pool |awk '/has.*address/{print $NF; exit}')" > testforgnb.sh;
+              sleep 5;
+              chmod 755 testforgnb.sh;
+              sleep 5;
+              source testforgnb.sh;
+              envsubst < /etc/ueransim/ue.yaml > ue.yaml;
+              sleep 10;
+              nr-ue -c ue.yaml;
+          volumeMounts:
+          - name: ueransim-ue-config
+            mountPath: /etc/ueransim/ue.yaml
+            subPath: "ue.yaml"        
+      volumes:
+        - name: ueransim-ue-config
+          configMap:
+            name: ueransim-ue-config
+

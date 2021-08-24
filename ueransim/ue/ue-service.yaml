@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ueransim-ue-svc-pool
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: ue
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    ngc-mode: ue
