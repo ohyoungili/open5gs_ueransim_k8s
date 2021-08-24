@@ -74,6 +74,15 @@ kubectl delete svc open5gs-bsf-svc-pool -n open5gs-ueransim
 kubectl delete cm open5gs-bsf-config -n open5gs-ueransim
 kubectl delete StatefulSet open5gs-bsf -n open5gs-ueransim
 
+12. gnb 만 삭제
+kubectl delete svc ueransim-gnb-svc-pool -n open5gs-ueransim
+kubectl delete cm ueransim-gnb-config -n open5gs-ueransim
+kubectl delete StatefulSet ueransim-gnb -n open5gs-ueransim
+
+13. ue 만 삭제
+kubectl delete svc ueransim-ue-svc-pool -n open5gs-ueransim
+kubectl delete cm ueransim-ue-config -n open5gs-ueransim
+kubectl delete StatefulSet ueransim-ue -n open5gs-ueransim
 
 ####################################################################################
 
@@ -84,6 +93,24 @@ open5gs/ 에서
 1. namespace 생성
 
 kubectl create namespace open5gs-ueransim
+
+kubectl apply -f mongo/mongo-statefulset.yaml
+kubectl apply -f nrf/
+kubectl apply -f smf/
+kubectl apply -f upf/
+kubectl apply -f amf/
+kubectl apply -f webui/
+kubectl apply -f ausf/
+kubectl apply -f nssf/
+kubectl apply -f pcf/
+kubectl apply -f udm/
+kubectl apply -f udr/
+kubectl apply -f bsf/
+
+001010000000001
+
+kubectl apply -f gnb/
+kubectl apply -f ue/
 
 2. Mongdb 생성
 
@@ -202,5 +229,20 @@ kubectl apply -f bsf/bsf-deploy.yaml
 14. webui 접속
 
 http://nodeIP주소:30000
+
+15. gnb 생성
+kubectl apply -f gnb/
+또는
+kubectl apply -f gnb/gnb-service.yaml
+kubectl apply -f gnb/gnb-configmap.yaml
+kubectl apply -f gnb/gnb-deploy.yaml
+
+16. ue 생성
+kubectl apply -f ue/
+또는
+kubectl apply -f ue/ue-service.yaml
+kubectl apply -f ue/ue-configmap.yaml
+kubectl apply -f ue/ue-deploy.yaml
+
 
 ####################################################################################
