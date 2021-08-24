@@ -28,7 +28,8 @@ RUN cd /tmp && git clone https://github.com/aligungr/UERANSIM.git && \
     cd UERANSIM && git checkout tags/$VERSION 
 RUN cd /tmp/UERANSIM && echo "cmake --version" && make
 
-FROM debian:stable-slim
+#FROM debian:stable-slim
+FROM debian:latest
 
 RUN apt-get update && \
     apt-get install -y  \
@@ -62,7 +63,9 @@ ENV ENB_ID=0x19B \
     UE_HOSTNAME=ue \
     GNB_HOSTNAME=gnb \
     AMF_HOSTNAME=amf \
-    APN=internet
+    APN=internet \
+    GNB_ADDR=127.0.0.1 \
+    AMF_ADDR=127.0.0.2
 
 #ENTRYPOINT ["/entrypoint.sh"]
 #CMD ["/bin/sh"]

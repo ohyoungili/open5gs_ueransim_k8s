@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata:
+  name: ueransim-gnb
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: gnb
+spec:
+  replicas: 1
+  serviceName: "ueransim-gnb-svc-pool"
+  selector:
+    matchLabels:
+      ngc-mode: gnb
+  template:
+    metadata:          
+      labels:
+        ngc-mode: gnb
+    spec:
+      containers:
+        - name: gnb
+          image: ohyoungili/ueransim:3.2.2
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          command: ["/bin/bash", "-c",]
+          args:
+            - sleep 10;
+              echo -e "export GNB_ADDR=$(host -4 ueransim-gnb-svc-pool |awk '/has.*address/{print $NF; exit}')" > testforgnb.sh;
+              sleep 5;
+              chmod 755 testforgnb.sh;
+              sleep 5;
+              source testforgnb.sh;
+              echo -e "export AMF_ADDR=$(host -4 open5gs-amf-svc-pool |awk '/has.*address/{print $NF; exit}')" > testforamf.sh;
+              sleep 5;
+              chmod 755 testforamf.sh;
+              sleep 5;
+              source testforamf.sh;
+              envsubst < /etc/ueransim/gnb.yaml > gnb.yaml;
+              sleep 10;
+              nr-gnb -c gnb.yaml;
+          volumeMounts:
+          - name: ueransim-gnb-config
+            mountPath: /etc/ueransim/gnb.yaml
+            subPath: "gnb.yaml"        
+      volumes:
+        - name: ueransim-gnb-config
+          configMap:
+            name: ueransim-gnb-config
+
