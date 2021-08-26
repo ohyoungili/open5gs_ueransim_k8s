@@ -54,7 +54,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
     libcurl4 \
     libmicrohttpd12 \
     libnghttp2-14 \
-    iproute2 iputils-ping procps net-tools iptables tcpdump && \
+    iproute2 iputils-ping procps net-tools iptables tcpdump traceroute && \
     rm -rf /var/lib/apt/lists/*
 
 ENV APP_ROOT=/opt/open5gs

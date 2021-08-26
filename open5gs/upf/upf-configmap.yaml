@@ -13,7 +13,8 @@ data:
         gtpu:
           dev: eth0
         subnet:
-          - addr: 10.45.0.1/16
+          #- addr: 10.45.0.1/16
+          - addr: 100.45.0.1/16
             dnn: internet    
             dev: ogstun
     smf:

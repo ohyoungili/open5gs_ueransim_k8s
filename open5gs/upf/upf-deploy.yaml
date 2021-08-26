@@ -28,18 +28,35 @@ spec:
               add: ["NET_ADMIN"]
           #imagePullPolicy: IfNotPresent
           imagePullPolicy: Always
+          env:
+          - name: IPV4_TUN_SUBNET
+            value: "100.45.0.0/16" 
+          - name: IPV4_TUN_ADDR
+            value: "100.45.0.1/16"
+          - name: IPV6_TUN_ADDR
+            value: "cafe::1/64"
+          - name: IPV4_TUN_SUBNET2
+            value: "100.46.0.0/16" 
+          - name: IPV4_TUN_ADDR2
+            value: "100.46.0.1/16"
+          - name: IPV6_TUN_ADDR2
+            value: "cafe::2/64"
           command: ["/bin/sh", "-c"]
           args:
-            - ip tuntap add name ogstun mode tun;
-              ip addr add 10.45.0.1/16 dev ogstun;
-              sysctl -w net.ipv6.conf.all.disable_ipv6=0;
-              ip addr add cafe::1/64 dev ogstun;
-              ip link set ogstun up;
-              sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward";
-              iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE;
+            - /entrypoint.sh;
               echo "Wait. for DNS";
-              sleep 60;
+              sleep 30;
               open5gs-upfd -c /opt/open5gs/etc/open5gs/upf.yaml;
+          #  - ip tuntap add name ogstun mode tun;
+          #    ip addr add 10.45.0.1/16 dev ogstun;
+          #    sysctl -w net.ipv6.conf.all.disable_ipv6=0;
+          #    ip addr add cafe::1/64 dev ogstun;
+          #    ip link set ogstun up;
+          #    sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward";
+          #    iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE;
+          #    echo "Wait. for DNS";
+          #    sleep 60;
+          #    open5gs-upfd -c /opt/open5gs/etc/open5gs/upf.yaml;
           volumeMounts:
           - name: open5gs-upf-config
             mountPath: /opt/open5gs/etc/open5gs/upf.yaml

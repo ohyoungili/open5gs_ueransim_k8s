@@ -39,7 +39,7 @@ RUN apt-get update && \
     iproute2 \
     iputils-ping \
     libsctp1 \
-    traceroute tcpdump net-tools iperf && \
+    traceroute tcpdump net-tools iperf iptables && \
     rm -rf /var/lib/apt/lists/*
 
     
