@@ -1,8 +1,5 @@
 FROM debian:buster-slim as builder
 
-LABEL org.opencontainers.image.authors="Oh young ill <ohyoungil@gmail.com>" \
-      org.opencontainers.image.licenses="GNU AGPL v3.0"
-
 RUN apt-get update && \
     apt-get upgrade -y && \
     DEBIAN_FRONTEND=noninteractive \
@@ -49,11 +46,6 @@ FROM debian:buster-slim
 
 ARG version=2.3.0
 
-LABEL org.opencontainers.image.authors="Oh young ill <youngil.oh@lge.com>" \
-      org.opencontainers.image.vendor="lge" \
-      org.opencontainers.image.licenses="GNU AGPL v3.0" \
-      org.opencontainers.image.version="$version"
-
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
     libyaml-0-2 \
     libmongoc-1.0-0 \
@@ -77,7 +69,7 @@ WORKDIR ${APP_ROOT}
 
 # update /usr/local/lib libraries 
 RUN ldconfig
-#COPY entrypoint_upf1.sh /entrypoint.sh
+COPY entrypoint_upf.sh /entrypoint.sh
 
 # TODO: run with non-root user
 #RUN groupadd -r open5gs && useradd --no-log-init -r -g open5gs open5gs
@@ -87,13 +79,13 @@ RUN ldconfig
 #Default CONF values
 #ENV DB_URI=mongodb://mongo/open5gs
 
-#ENV IPV4_TUN_SUBNET="10.45.0.0/16" \
-#    IPV4_TUN_ADDR="10.45.0.1/16" \
-#    IPV6_TUN_ADDR="cafe::1/64" \
-#    IPV4_TUN_SUBNET2="10.46.0.0/16" \
-#    IPV4_TUN_ADDR2="10.46.0.1/16" \
-#    IPV6_TUN_ADDR2="cafe::2/64" \
-#    ENABLE_NAT=true
+ENV IPV4_TUN_SUBNET="10.45.0.0/16" \
+    IPV4_TUN_ADDR="10.45.0.1/16" \
+    IPV6_TUN_ADDR="cafe::1/64" \
+    IPV4_TUN_SUBNET2="10.46.0.0/16" \
+    IPV4_TUN_ADDR2="10.46.0.1/16" \
+    IPV6_TUN_ADDR2="cafe::2/64" \
+    ENABLE_NAT=true
 
 #ENTRYPOINT ["/entrypoint.sh"]
 #CMD ["/bin/bash"]
