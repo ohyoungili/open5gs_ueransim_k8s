@@ -6,9 +6,14 @@ metadata:
   labels:
     ngc-mode: nrf
 spec:
-  type: ClusterIP
-  #clusterIP: 10.96.100.110
-  clusterIP: None
+  type: ClusterIP  
+  #clusterIP: None
+  ports:
+  - name: sbi
+    port: 7777
+    protocol: TCP
+
+  publishNotReadyAddresses: true
   selector:
     ngc-mode: nrf
 

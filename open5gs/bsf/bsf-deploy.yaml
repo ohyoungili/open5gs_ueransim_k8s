@@ -29,6 +29,10 @@ spec:
             - echo "Wait. for DNS";
               sleep 60;
               open5gs-bsfd -c /opt/open5gs/etc/open5gs/bsf.yaml;
+          ports:
+            - name: sbi
+              containerPort: 7003
+              protocol: TCP
           volumeMounts:
           - name: open5gs-bsf-config
             mountPath: /opt/open5gs/etc/open5gs/bsf.yaml

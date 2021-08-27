@@ -7,7 +7,15 @@ metadata:
     ngc-mode: upf
 spec:
   type: ClusterIP
-#  clusterIP: 10.96.100.107
-  clusterIP: None
+  #clusterIP: None
+  ports:
+  - name: gtp-u
+    port: 2152
+    protocol: UDP
+  - name: pfcp
+    port: 8805
+    protocol: UDP
+
+  publishNotReadyAddresses: true
   selector:
     ngc-mode: upf

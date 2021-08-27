@@ -7,6 +7,12 @@ metadata:
     ngc-mode: udr
 spec:
   type: ClusterIP
-  clusterIP: None
+  #clusterIP: None
+  ports:
+  - name: sbi
+    port: 7008
+    protocol: TCP
+
+  publishNotReadyAddresses: true
   selector:
     ngc-mode: udr

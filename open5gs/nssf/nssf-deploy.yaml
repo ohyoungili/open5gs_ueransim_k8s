@@ -26,6 +26,10 @@ spec:
             - echo "Wait. for DNS";
               sleep 60;
               open5gs-nssfd -c /opt/open5gs/etc/open5gs/nssf.yaml;
+          ports:
+            - name: sbi
+              containerPort: 7004
+              protocol: TCP
           volumeMounts:
           - name: open5gs-nssf-config
             mountPath: /opt/open5gs/etc/open5gs/nssf.yaml

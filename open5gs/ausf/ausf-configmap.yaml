@@ -7,10 +7,13 @@ metadata:
     ngc-mode: ausf
 data:
   ausf.yaml: |
+    logger:
+      level: info
+
     ausf:
       sbi:
         - dev: eth0
-          port: 7777
+          port: 7002
 
     nrf:
         sbi:

@@ -7,10 +7,13 @@ metadata:
     ngc-mode: udr
 data:
   udr.yaml: |
+    logger:
+      level: info
+
     udr:
       sbi:
         - dev: eth0
-          port: 7777
+          port: 7008
 
     nrf:
         sbi:

@@ -7,6 +7,15 @@ metadata:
     ngc-mode: amf
 spec:
   type: ClusterIP
-  clusterIP: None
+  #clusterIP: None
+  ports:
+  - name: sbi
+    port: 7001
+    protocol: TCP
+  - name: ngap 
+    port: 38412
+    protocol: SCTP
+
+  publishNotReadyAddresses: true
   selector:
     ngc-mode: amf

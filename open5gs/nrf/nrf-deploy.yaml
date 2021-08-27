@@ -26,6 +26,10 @@ spec:
             - echo "Wait. for DNS";
               sleep 60;
               open5gs-nrfd -c /opt/open5gs/etc/open5gs/nrf.yaml;
+          ports:
+            - name: sbi
+              containerPort: 7777
+              protocol: TCP
           volumeMounts:
             - name: open5gs-nrf-config
               mountPath: /opt/open5gs/etc/open5gs/nrf.yaml

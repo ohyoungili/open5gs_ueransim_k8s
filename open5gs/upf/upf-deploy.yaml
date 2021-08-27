@@ -57,6 +57,13 @@ spec:
           #    echo "Wait. for DNS";
           #    sleep 60;
           #    open5gs-upfd -c /opt/open5gs/etc/open5gs/upf.yaml;
+          ports:
+            - name: gtp-u
+              containerPort: 2152
+              protocol: UDP
+            - name: pfcp
+              containerPort: 8805
+              protocol: UDP
           volumeMounts:
           - name: open5gs-upf-config
             mountPath: /opt/open5gs/etc/open5gs/upf.yaml

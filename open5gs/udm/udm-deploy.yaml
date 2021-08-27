@@ -26,6 +26,10 @@ spec:
             - echo "Wait. for DNS";
               sleep 60;
               open5gs-udmd -c /opt/open5gs/etc/open5gs/udm.yaml;
+          ports:
+            - name: sbi
+              containerPort: 7007
+              protocol: TCP
           volumeMounts:
           - name: open5gs-udm-config
             mountPath: /opt/open5gs/etc/open5gs/udm.yaml

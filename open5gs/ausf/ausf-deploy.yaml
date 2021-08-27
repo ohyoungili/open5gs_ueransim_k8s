@@ -26,6 +26,10 @@ spec:
             - echo "Wait. for DNS";
               sleep 60;
               open5gs-ausfd -c /opt/open5gs/etc/open5gs/ausf.yaml;
+          ports:
+            - name: sbi
+              containerPort: 7002
+              protocol: TCP
           volumeMounts:
           - name: open5gs-ausf-config
             mountPath: /opt/open5gs/etc/open5gs/ausf.yaml

@@ -7,11 +7,15 @@ metadata:
     ngc-mode: upf
 data:
   upf.yaml: |
+    logger:
+      level: info
+
     upf:
         pfcp:
           dev: eth0
         gtpu:
           dev: eth0
+          advertise_name: "open5gs-upf-svc-pool"
         subnet:
           #- addr: 10.45.0.1/16
           - addr: 100.45.0.1/16

@@ -7,10 +7,13 @@ metadata:
     ngc-mode: smf
 data:
   smf.yaml: |
+    logger:
+      level: info
+
     smf:
         sbi:
           - dev: eth0
-            port: 7777
+            port: 7006
         gtpc:
           dev: eth0
         gtpu:
@@ -22,8 +25,8 @@ data:
           - addr: 100.45.0.1/16
             dnn: internet
         dns:
-          - 8.8.8.8
-          - 8.8.4.4
+                      - 8.8.8.8
+                      - 8.8.4.4
         mtu: 1400
         freeDiameter: /opt/open5gs/etc/freeDiameter/diameter-smf.conf
 

@@ -7,6 +7,9 @@ metadata:
     ngc-mode: nrf
 data:
   nrf.yaml: |
+    logger:
+      level: info
+
     nrf:
         sbi:
           - dev: eth0

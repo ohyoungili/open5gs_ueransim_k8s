@@ -7,10 +7,13 @@ metadata:
     ngc-mode: amf
 data:
   amf.yaml: |
+    logger:
+      level: info
+
     amf:
       sbi:
         - dev: eth0
-          port: 7777
+          port: 7001
       ngap:
         - dev: eth0
       guami:

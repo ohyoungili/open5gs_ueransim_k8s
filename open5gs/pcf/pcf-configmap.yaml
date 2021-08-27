@@ -7,10 +7,13 @@ metadata:
     ngc-mode: pcf
 data:
   pcf.yaml: |
+    logger:
+      level: info
+
     pcf:
       sbi:
         - dev: eth0
-          port: 7777
+          port: 7005
 
     nrf:
         sbi:

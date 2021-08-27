@@ -7,6 +7,12 @@ metadata:
     ngc-mode: ausf
 spec:
   type: ClusterIP
-  clusterIP: None
+  #clusterIP: None
+  ports:
+  - name: sbi
+    port: 7002
+    protocol: TCP
+
+  publishNotReadyAddresses: true
   selector:
     ngc-mode: ausf

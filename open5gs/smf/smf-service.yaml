@@ -7,7 +7,21 @@ metadata:
     ngc-mode: smf
 spec:
   type: ClusterIP
-#  clusterIP: 10.96.100.104
-  clusterIP: None
+  #clusterIP: None
+  ports:
+  - name: gtp-c
+    port: 2123
+    protocol: UDP
+  - name: pfcp
+    port: 8805
+    protocol: UDP
+  - name: s6a
+    port: 3868
+    protocol: SCTP
+  - name: sbi
+    port: 7006
+    protocol: TCP
+
+  publishNotReadyAddresses: true
   selector:
     ngc-mode: smf

@@ -7,6 +7,12 @@ metadata:
     ngc-mode: udm
 spec:
   type: ClusterIP
-  clusterIP: None
+  #clusterIP: None
+  ports:
+  - name: sbi
+    port: 7007
+    protocol: TCP
+
+  publishNotReadyAddresses: true
   selector:
     ngc-mode: udm

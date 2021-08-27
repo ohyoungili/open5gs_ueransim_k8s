@@ -26,6 +26,13 @@ spec:
             - echo "Wait. for DNS";
               sleep 60;
               open5gs-amfd -c /opt/open5gs/etc/open5gs/amf.yaml;
+          ports:
+            - name: sbi
+              containerPort: 7001
+              protocol: TCP
+            - name: ngap 
+              containerPort: 38412
+              protocol: UDP
           volumeMounts:
           - name: open5gs-amf-config
             mountPath: /opt/open5gs/etc/open5gs/amf.yaml
