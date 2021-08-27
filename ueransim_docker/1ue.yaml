@@ -1,0 +1,24 @@
+version: '3'
+services: 
+  ue1:
+    image: ueransimfordocker:3.2.2
+    container_name: ue1
+    command: 
+      - ue
+    cap_add:
+      - all
+    privileged: true
+    environment:
+      GNB_HOSTNAME: gnb1
+      APN: internet
+      MSISDN: '0000000001'
+      KEY: '8baf473f2f8fd09487cccbd7097c6862'
+      OP_TYPE: OPC
+      OP: '8e27b6af0e692e750f32667a3b14605d'
+      MCC: '001'
+      MNC: '01'
+      SST: '1'
+      SD: '1'
+      GNB_ADDR: '10.178.70.76'
+    network_mode: "host"
+    

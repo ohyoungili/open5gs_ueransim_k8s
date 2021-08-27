@@ -15,7 +15,7 @@ data:
           dev: eth0
         gtpu:
           dev: eth0
-          advertise_name: "open5gs-upf-svc-pool"
+          #advertise_name: "open5gs-upf-svc-pool"
         subnet:
           #- addr: 10.45.0.1/16
           - addr: 100.45.0.1/16

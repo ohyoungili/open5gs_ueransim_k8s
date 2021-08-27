@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: open5gs-amf-svc-pool
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: amf
+spec:
+  type: NodePort
+  ports:
+  - name: sbi
+    port: 7001
+    protocol: TCP
+    #nodePort: 7001
+  - name: ngap 
+    port: 38412
+    protocol: SCTP
+    nodePort: 38412
+
+  publishNotReadyAddresses: true
+  selector:
+    ngc-mode: amf

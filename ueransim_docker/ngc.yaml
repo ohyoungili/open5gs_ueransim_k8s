@@ -1,0 +1,144 @@
+version: '2.4'
+services: 
+  mongo:
+    image: mongo
+    container_name: mongo
+    environment:
+      MONGO_INITDB_DATABASE: free5gc
+  nrf:
+    image: free5gc:3.0.5
+    container_name: nrf
+    volumes:
+      - ./free5gc/configs/free5gc/nrfcfg.yaml:/etc/free5gc/nrfcfg.yaml
+    command: ["nrf","-nrfcfg","/etc/free5gc/nrfcfg.yaml"]
+    restart : on-failure
+    depends_on:
+      - mongo
+  udr:
+    image: free5gc:3.0.5
+    container_name: udr
+    volumes:
+      - ./free5gc/configs/free5gc/udrcfg.yaml:/etc/free5gc/udrcfg.yaml
+    command: ["udr","-udrcfg","/etc/free5gc/udrcfg.yaml"]
+    restart : on-failure
+    depends_on:
+      - nrf
+      - mongo
+  amf:
+    image: free5gc:3.0.5
+    container_name: amf
+    volumes:
+      - ./free5gc/configs/free5gc/amfcfg.yaml:/etc/free5gc/amfcfg.yaml
+    command: ["amf","-amfcfg","/etc/free5gc/amfcfg.yaml"]
+    restart : on-failure
+    depends_on:
+      - nrf
+  smf:
+    image: free5gc:3.0.5
+    container_name: smf
+    volumes:
+      - ./free5gc/configs/free5gc/smfcfg.yaml:/etc/free5gc/smfcfg.yaml
+      - ./free5gc/configs/free5gc/uerouting.yaml:/etc/free5gc/uerouting.yaml
+    command: 
+      - "smf"
+      - "--smfcfg=/etc/free5gc/smfcfg.yaml"
+      - "--uerouting=/etc/free5gc/uerouting.yaml"
+    restart : on-failure
+    depends_on:
+      - nrf
+      - upf
+ #     - upfb
+ #     - upf1
+ #     - upf2
+  pcf:
+    image: free5gc:3.0.5
+    container_name: pcf
+    volumes:
+      - ./free5gc/configs/free5gc/pcfcfg.yaml:/etc/free5gc/pcfcfg.yaml
+    command: ["pcf","-pcfcfg","/etc/free5gc/pcfcfg.yaml"]
+    restart : on-failure
+    depends_on:
+      - nrf
+  udm:
+    image: free5gc:3.0.5
+    container_name: udm
+    volumes:
+      - ./free5gc/configs/free5gc/udmcfg.yaml:/etc/free5gc/udmcfg.yaml
+    command: ["udm","-udmcfg","/etc/free5gc/udmcfg.yaml"]
+    restart : on-failure
+    depends_on:
+      - nrf
+      - mongo
+  nssf:
+    image: free5gc:3.0.5
+    container_name: nssf
+    volumes:
+      - ./free5gc/configs/free5gc/nssfcfg.yaml:/etc/free5gc/nssfcfg.yaml
+    command: ["nssf","-nssfcfg","/etc/free5gc/nssfcfg.yaml"]
+    restart : on-failure
+    depends_on:
+      - nrf
+  ausf:
+    image: free5gc:3.0.5
+    container_name: ausf
+    volumes:
+      - ./free5gc/configs/free5gc/ausfcfg.yaml:/etc/free5gc/ausfcfg.yaml
+    command: ["ausf","-ausfcfg","/etc/free5gc/ausfcfg.yaml"]
+    restart : on-failure
+    depends_on:
+      - nrf
+  upf:
+    cap_add:
+      - NET_ADMIN
+    image: free5gc:3.0.5
+    container_name: upf
+    volumes:
+      - ./free5gc/configs/free5gc/upfcfg.yaml:/etc/free5gc/upfcfg.yaml
+    command: ["upf","-f","/etc/free5gc/upfcfg.yaml"]
+    restart : on-failure
+    
+  #upfb:
+  #  cap_add:
+  #    - NET_ADMIN
+  #  image: free5gc:3.0.5
+  #  container_name: upfb
+  #  volumes:
+  #    - ./free5gc/configs/free5gc/upfcfgb.yaml:/etc/free5gc/upfcfg.yaml
+  #  command: ["upf","-f","/etc/free5gc/upfcfg.yaml"]
+  #  restart : on-failure
+
+  #upf1:
+  # cap_add:
+  #    - NET_ADMIN
+  #  image: free5gc:3.0.5
+  #  container_name: upf1
+  #  volumes:
+  #    - ./free5gc/configs/free5gc/upfcfg1.yaml:/etc/free5gc/upfcfg.yaml
+  #  command: ["upf","-f","/etc/free5gc/upfcfg.yaml"]
+  #  restart : on-failure
+    
+  #upf2:
+  #  cap_add:
+  #    - NET_ADMIN
+  #  image: free5gc:3.0.5
+  #  container_name: upf2
+  #  volumes:
+  #    - ./free5gc/configs/free5gc/upfcfg2.yaml:/etc/free5gc/upfcfg.yaml
+  #  command: ["upf","-f","/etc/free5gc/upfcfg.yaml"]
+  #  restart : on-failure
+    
+  webconsole:
+    image: free5gc_webconsole:1.0.1
+    container_name: webconsole
+    restart: on-failure
+    ports:
+      - 5000:5000
+    volumes:
+      - ./free5gc/configs/free5gc/webuicfg.yaml:/etc/free5gc/webuicfg.yaml
+
+  #portainer:
+  #  image: portainer/portainer-ce
+  #  ports:
+  #  - 9000:9000
+  #  volumes:
+  #  - /var/run/docker.sock:/var/run/docker.sock
