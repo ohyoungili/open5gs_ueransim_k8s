@@ -5,6 +5,9 @@ services:
     container_name: gnb1
     command: 
       - gnb
+    cap_add:
+      - all
+    privileged: true
     environment:
       AMF_HOSTNAME: amf
       GNB_HOSTNAME: gnb1

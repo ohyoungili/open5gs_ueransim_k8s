@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: open5gs-upf-svc-pool
+  namespace: open5gs-ueransim
+  labels:
+    ngc-mode: upf
+spec:
+  type: NodePort
+  ports:
+  - name: gtp-u
+    port: 2152
+    protocol: UDP
+    nodePort: 2152
+  - name: pfcp
+    port: 8805
+    protocol: UDP
+    nodePort: 8805
+
+  publishNotReadyAddresses: true
+  selector:
+    ngc-mode: upf
