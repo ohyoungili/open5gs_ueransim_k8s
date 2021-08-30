@@ -12,7 +12,7 @@ services:
       MNC: '01'
       SST: '1'
       SD: '1'
-      GNB_ADDR: '10.178.70.76'
+      GNB_ADDR: '10.178.70.77'
       AMF_ADDR: '10.178.70.74'
     network_mode: "host"
 

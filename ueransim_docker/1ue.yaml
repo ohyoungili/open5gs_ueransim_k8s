@@ -12,13 +12,13 @@ services:
       GNB_HOSTNAME: gnb1
       APN: internet
       MSISDN: '0000000001'
-      KEY: '8baf473f2f8fd09487cccbd7097c6862'
+      KEY: '465B5CE8B199B49FAA5F0A2EE238A6BC'
       OP_TYPE: OPC
-      OP: '8e27b6af0e692e750f32667a3b14605d'
+      OP: 'E8ED289DEBA952E4283B54E88E6183CA'
       MCC: '001'
       MNC: '01'
       SST: '1'
       SD: '1'
-      GNB_ADDR: '10.178.70.76'
+      GNB_ADDR: '10.178.70.77'
     network_mode: "host"
     
