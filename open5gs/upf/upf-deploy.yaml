@@ -45,7 +45,7 @@ spec:
           args:
             - /entrypoint.sh;
               echo "Wait. for DNS";
-              sleep 30;
+              sleep 60;
               open5gs-upfd -c /opt/open5gs/etc/open5gs/upf.yaml;
           #  - ip tuntap add name ogstun mode tun;
           #    ip addr add 10.45.0.1/16 dev ogstun;
