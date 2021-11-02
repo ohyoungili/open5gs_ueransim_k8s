@@ -32,18 +32,18 @@ spec:
               sleep 60;
               open5gs-smfd -c /opt/open5gs/etc/open5gs/smf.yaml;
           ports:
-            - name: gtp-u
-              containerPort: 2152
-              protocol: UDP
-            - name: gtp-c
-              containerPort: 2123
-              protocol: UDP
+            #- name: gtp-u
+            #  containerPort: 2152
+            #  protocol: UDP
+            #- name: gtp-c
+            #  containerPort: 2123
+            #  protocol: UDP
             - name: pfcp
               containerPort: 8805
               protocol: UDP
-            - name: s6a
-              containerPort: 3868
-              protocol: SCTP
+            #- name: s6a
+            #  containerPort: 3868
+            #  protocol: SCTP
             - name: sbi
               containerPort: 7006
               protocol: TCP

@@ -9,15 +9,15 @@ spec:
   type: ClusterIP
   #clusterIP: None
   ports:
-  - name: gtp-c
-    port: 2123
-    protocol: UDP
+  #- name: gtp-c
+  #  port: 2123
+  #  protocol: UDP
   - name: pfcp
     port: 8805
     protocol: UDP
-  - name: s6a
-    port: 3868
-    protocol: SCTP
+  #- name: s6a
+  #  port: 3868
+  #  protocol: SCTP
   - name: sbi
     port: 7006
     protocol: TCP
