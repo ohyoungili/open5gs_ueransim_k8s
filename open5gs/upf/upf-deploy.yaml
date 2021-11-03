@@ -15,6 +15,8 @@ spec:
     metadata:          
       labels:
         ngc-mode: upf
+      #annotations:
+      #  k8s.v1.cni.cncf.io/networks: upf-n3
     spec:
       containers:
         - name: upf
@@ -68,13 +70,27 @@ spec:
           - name: open5gs-upf-config
             mountPath: /opt/open5gs/etc/open5gs/upf.yaml
             subPath: "upf.yaml"
-          - mountPath: /dev/net/tun
-            name: dev-net-tun            
+          - name: dev-net-tun
+            mountPath: /dev/net/tun
+          - name: open5gs-upf-entrypoint
+            mountPath: /entrypoint.sh
+            readOnly: true
+            subPath: "entrypoint.sh"            
       volumes:
         - name: open5gs-upf-config
           configMap:
-            name: open5gs-upf-config            
+            name: open5gs-upf-config
+            items:
+            - key: upf.yaml
+              path: upf.yaml           
         - name: dev-net-tun
           hostPath:
             path: /dev/net/tun
+        - name: open5gs-upf-entrypoint
+          configMap:
+            name: open5gs-upf-config
+            defaultMode: 0700
+            items:
+            - key: entrypoint.sh
+              path: entrypoint.sh
 

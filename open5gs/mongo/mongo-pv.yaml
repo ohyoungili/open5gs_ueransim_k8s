@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: standard
+  name: mongo-persistent-storage
+  namespace: open5gs-ueransim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  nfs:
+    path: /home/nfs/mongo-persistent-storage
+    server: 10.178.70.74
+  persistentVolumeReclaimPolicy: Retain
+  #storageClassName: nfs-standard
+  volumeMode: Filesystem

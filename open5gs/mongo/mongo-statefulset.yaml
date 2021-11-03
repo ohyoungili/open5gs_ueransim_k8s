@@ -89,15 +89,14 @@ spec:
               value: "role=mongo,environment=test"
             - name: KUBERNETES_SERVICE_NAME
               value: "mongo"
-      volumes:
-      - name: mongo-persistent-storage
-        emptyDir: {}
-  #volumeClaimTemplates:
-  #- metadata:
-  #    name: mongo-persistent-storage
-  #  spec:
-  #    storageClassName: fast
-  #    accessModes: [ "ReadWriteOnce" ]
-  #    resources:
-  #      requests:
-  #        storage: 2Gi
+      #volumes:
+      #- name: mongo-persistent-storage
+      #  emptyDir: {}
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo-persistent-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 2Gi
