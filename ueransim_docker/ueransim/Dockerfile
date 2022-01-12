@@ -62,7 +62,8 @@ ENV ENB_ID=0x19B \
     UE_HOSTNAME=ue \
     GNB_HOSTNAME=gnb \
     AMF_HOSTNAME=amf \
-    APN=internet
+    APN=internet \
+    NCI=0x0000000001
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/bin/sh"]

@@ -1,7 +1,7 @@
 mcc: ${MCC}        # Mobile Country Code value
 mnc: ${MNC}           # Mobile Network Code value (2 or 3 digits)
 
-nci: '0x0000000100'  # NR Cell Identity (36-bit)
+nci: ${NCI}          # '0x0000000100'  # NR Cell Identity (36-bit)
 idLength: 32        # NR gNB ID length in bits [22...32]
 tac: ${TAC}             # Tracking Area Code
 

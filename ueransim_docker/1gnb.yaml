@@ -17,5 +17,6 @@ services:
       SD: '1'
       GNB_ADDR: '172.31.2.6'
       AMF_ADDR: '172.30.8.118'
+      NCI: '0x0000000010'
     network_mode: "host"
 
