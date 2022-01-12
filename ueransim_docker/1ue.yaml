@@ -10,15 +10,15 @@ services:
     privileged: true
     environment:
       GNB_HOSTNAME: gnb1
-      APN: internet
-      MSISDN: '0000000001'
-      KEY: '465B5CE8B199B49FAA5F0A2EE238A6BC'
+      APN: internet.lguplus.co.kr
+      MSISDN: '0000054044'
+      KEY: 'D77E153F69F5462F40A0E15F5F8BFB91'
       OP_TYPE: OPC
-      OP: 'E8ED289DEBA952E4283B54E88E6183CA'
-      MCC: '001'
-      MNC: '01'
+      OP: 'CE231560DB6DBC0C17EFAE7BB22BEF25'
+      MCC: '999'
+      MNC: '70'
       SST: '1'
       SD: '1'
-      GNB_ADDR: '10.178.70.77'
+      GNB_ADDR: '172.31.2.6'
     network_mode: "host"
     

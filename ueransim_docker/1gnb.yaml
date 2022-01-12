@@ -11,11 +11,11 @@ services:
     environment:
       AMF_HOSTNAME: amf
       GNB_HOSTNAME: gnb1
-      MCC: '001'
-      MNC: '01'
+      MCC: '999'
+      MNC: '70'
       SST: '1'
       SD: '1'
-      GNB_ADDR: '10.178.70.77'
-      AMF_ADDR: '10.178.70.74'
+      GNB_ADDR: '172.31.2.6'
+      AMF_ADDR: '172.30.8.118'
     network_mode: "host"
 

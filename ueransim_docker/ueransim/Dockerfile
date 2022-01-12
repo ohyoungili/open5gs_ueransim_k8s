@@ -38,7 +38,7 @@ RUN apt-get update && \
     iproute2 \
     iputils-ping \
     libsctp1 \
-    traceroute tcpdump net-tools iperf iptables && \
+    traceroute tcpdump net-tools iperf iptables ftp && \
     rm -rf /var/lib/apt/lists/*
 
     

@@ -42,13 +42,13 @@ sessions:
     apn: ${APN}
     slice:
       sst: ${SST}
-      #sd: ${SD}
+      sd: ${SD}
     emergency: false
 
 # Configured NSSAI for this UE by HPLMN
 configured-nssai:
   - sst: ${SST}
-    #sd: ${SD}
+    sd: ${SD}
 
 # Default Configured NSSAI for this UE
 default-nssai:
